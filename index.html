@@ -1,1 +1,281 @@
-<h1> 我的第一个页面 </h1>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://at.alicdn.com/t/font_2755767_b340vn46rr.css">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .banner {
+      width: 590px;
+      height: 470px;
+      margin: 100px auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* 从 none - block  不好做动画 */
+    /* opacity  0   ---  1   */
+    .banner .img-item {
+      width: 590px;
+      height: 470px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: all 0.5s;
+    }
+
+    .banner .img-item.active {
+      opacity: 1;
+      z-index: 1;
+    }
+
+    .banner .img-item img {
+      width: 100%;
+    }
+
+    .banner .pagination {
+      list-style: none;
+      position: absolute;
+      bottom: 20px;
+      left: 30px;
+      z-index: 2;
+    }
+
+    .banner .pagination li {
+      float: left;
+      margin-left: 5px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.6);
+      background-clip: content-box;
+      box-sizing: content-box;
+      margin-top: 5px;
+    }
+
+    .banner .pagination li.active {
+      background-color: #fff;
+      margin-top: 0;
+      border: 5px solid rgba(207, 207, 207, 0.5);
+    }
+
+    .banner .prev,
+    .banner .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 30px;
+      border-radius: 15px;
+      background-color: rgb(190, 189, 189, 0.8);
+      line-height: 30px;
+      z-index: 2;
+      color: #fff;
+      font-size: 10px;
+      cursor: pointer;
+    }
+
+    .banner .prev:hover,
+    .banner .next:hover {
+      background-color: rgb(94, 93, 93, 0.8);
+    }
+
+    .banner .prev {
+      left: -20px;
+      text-align: right;
+      padding-right: 5px;
+    }
+
+    .banner .next {
+      right: -20px;
+      padding-left: 5px;
+    }
+
+    .banner .prev span,
+    .banner .next span {
+      display: inline-block;
+      transform: scale(0.8);
+    }
+
+    /* .box{
+      width: 200px;
+      height: 200px;
+      background-color: #000;
+      border: 10px solid rgba(158, 46, 46, 0.6);
+      background-clip: content-box;
+    } */
+  </style>
+</head>
+
+<body>
+  <div class="banner">
+    <div class="img-wrap">
+      <div class="img-item active">
+        <!-- 锚点功能 -->
+        <a href="#1">
+          <img
+            src="https://img10.360buyimg.com/pop/s590x470_jfs/t1/187383/17/20241/75758/61290873Ebb9ee15b/02a1ba25347c42e2.jpg.webp"
+            alt="">
+        </a>
+      </div>
+      <div class="img-item">
+        <a href="#2">
+          <img
+            src="https://img11.360buyimg.com/babel/s590x470_jfs/t1/83671/26/16883/152985/61373f0fEc94f1a28/47fd3361e9448320.jpg.webp"
+            alt="">
+        </a>
+      </div>
+      <div class="img-item">
+        <a href="#3">
+          <img
+            src="https://imgcps.jd.com/img-cubic/creative_server_cia/v2/2000366/100010594805/FocusFullshop/CkNqZnMvdDEvMzQxNDAvMTgvMTYxNTAvNDYwMjAzLzYwZTY5MzgyRTdhMDkwOTMxLzI2YzFiZjJkODUyMWNmMjAucG5nEgkzLXR5XzBfNTQwAjjui3pCEAoM5LiA5Yqg5omL5py6EABCEwoP6LSo5LyY5Y-I5Lu35buJEAFCEAoM56uL5Y2z5oqi6LStEAJCCgoG5Yqb6I2QEAdY9aPiyPQC/cr/s/q.jpg"
+            alt="">
+        </a>
+      </div>
+      <div class="img-item">
+        <a href="#4">
+          <img
+            src="https://img10.360buyimg.com/pop/s590x470_jfs/t1/196943/18/4671/83751/6124c0d7E4004dcbd/303de1405fad6019.jpg.webp"
+            alt="">
+        </a>
+      </div>
+    </div>
+    <ul class="pagination">
+      <!-- data-index 是自定义属性 并不是标签本身自带的而是用于 js 做功能使用的 -->
+      <li data-index="0" class="active"></li>
+      <li data-index="1"></li>
+      <li data-index="2"></li>
+      <li data-index="3"></li>
+    </ul>
+    <div class="prev"><span class="icon-zuo iconfont"></span></div>
+    <div class="next"><span class="icon-you iconfont"></span></div>
+  </div>
+  <!-- <div class="box"></div> -->
+  <script>
+
+    // 包含
+    function hasClass(ele, className) {
+      var eleClassName = ' ' + ele.className + ' '
+      return eleClassName.includes(' ' + className + ' ')
+    }
+    // 添加
+    function addClass(ele, className) {
+      if (!hasClass(ele, className)) {
+        var eleClassName = ele.className
+        var newClass = eleClassName ? eleClassName + ' ' + className : className
+        ele.className = newClass
+      }
+    }
+    // 删除
+    function removeClass(ele, className) {
+      if (hasClass(ele, className)) {
+        var oldClassName = ele.className
+        var classArr = oldClassName.split(' ')
+        var newClassArr = classArr.filter(function (item) {
+          return item !== className
+        })
+        ele.className = newClassArr.join(' ')
+      }
+    }
+    // 分页器事件   使用事件委托简化
+    var liEles = document.querySelectorAll('.banner .pagination li')
+    var imgEles = document.querySelectorAll('.banner .img-item')
+    var activeIndex = 0
+    var imgNum = imgEles.length
+    // mouseenter  mouseover 的区别   
+    // mouseover 会在划过任意的子级和本身 切换的时候反复触发事件
+    // mouseenter 只有在移出之后移入才会再次触发
+    document.querySelector('.banner .pagination').addEventListener('mouseover', function (event) {
+      var targetEle = event.target
+      // console.log(targetEle)
+      if (targetEle.tagName === 'LI') {
+        for (var i = 0; i < liEles.length; i++) {
+          if (hasClass(liEles[i], 'active')) {
+            removeClass(liEles[i], 'active')
+            removeClass(imgEles[i], 'active')
+          }
+        }
+        addClass(targetEle, 'active')
+        // 获取自定义的属性 data-xx  
+        // 1. 可以直接使用 getAttribute
+        // 2. 使用  dataset   ie 11 及以上 才能用
+        // dataset 获取到的是所有 data-* 的自定义属性组成的对象  例如 {index: '1'}
+        // 如果是 data-index-num-hello = 10 的话那么  {indexNumHello: 10}
+        // 优缺点 dataset 取多个方便
+        // var index = targetEle.getAttribute('data-index')
+        var index = targetEle.dataset.index
+        // console.log(targetEle.dataset)
+        activeIndex = index
+        addClass(imgEles[index], 'active')
+      }
+    })
+
+    // for (var i = 0; i < liEles.length; i++) {
+    //   liEles[i].index = i
+    //   liEles[i].onmouseenter = function () {
+    //     for (var j = 0; j < liEles.length; j++) {
+    //       if (hasClass(liEles[j], 'active')) {
+    //         removeClass(liEles[j], 'active')
+    //         removeClass(imgEles[j], 'active')
+    //       }
+    //     }
+    //     var index = this.index
+    //     addClass(this, 'active')
+    //     addClass(imgEles[index], 'active')
+    //   }
+    // }
+
+    document.querySelector('.prev').onclick = function () {
+      activeIndex--
+      if (activeIndex < 0) {
+        activeIndex = imgNum - 1
+      }
+      for (var j = 0; j < liEles.length; j++) {
+        if (hasClass(liEles[j], 'active')) {
+          removeClass(liEles[j], 'active')
+          removeClass(imgEles[j], 'active')
+        }
+      }
+      addClass(liEles[activeIndex], 'active')
+      addClass(imgEles[activeIndex], 'active')
+    }
+    function nextHandle() {
+      activeIndex++
+      if (activeIndex > imgNum - 1) {
+        activeIndex = 0
+      }
+      for (var j = 0; j < liEles.length; j++) {
+        if (hasClass(liEles[j], 'active')) {
+          removeClass(liEles[j], 'active')
+          removeClass(imgEles[j], 'active')
+        }
+      }
+      addClass(liEles[activeIndex], 'active')
+      addClass(imgEles[activeIndex], 'active')
+    }
+    document.querySelector('.next').onclick = nextHandle
+
+    // 自动播放  setInterval 
+
+    var autoPlay = setInterval(nextHandle, 2000);
+
+    document.querySelector('.banner').onmouseenter = function(){
+      clearInterval(autoPlay)
+    }
+    document.querySelector('.banner').onmouseleave = function(){
+      autoPlay = setInterval(nextHandle, 2000)
+    }
+  </script>
+</body>
+
+</html>
